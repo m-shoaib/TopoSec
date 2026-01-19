@@ -1,0 +1,121 @@
+
+## Data Files Description
+
+### 1. `lldp_events.csv`
+**Source**: Ryu controller EventOFPPacketIn events
+**Fields**:
+- `event_id`: Unique identifier for each LLDP event
+- `timestamp`: Microsecond-precision timestamp
+- `src_dpid`, `dst_dpid`: Source and destination switch DPIDs
+- `attack_type`: Attack type (empty for normal traffic)
+- `detected`: Whether TopoSec detected this as an attack
+- `decoy_link_hit`: Whether this involved a decoy link
+- Additional packet metadata
+
+**Collection Notes**:
+- Sampled all LLDP packets received by controller
+- Timestamps synchronized via NTP
+- Includes 0.5% packet loss due to network conditions
+
+### 2. `detections.csv`
+**Source**: TopoSec detection modules
+**Fields**:
+- `detection_id`: Unique detection record ID
+- `attack_type`: Type of attack detected
+- `latency_ms`: Detection latency
+- `dc_confidence`, `lba_score`, etc.: Module confidence scores
+- `modules_involved`: Which modules contributed to detection
+- `action_taken`: Response action (quarantine, alert, etc.)
+
+**Collection Notes**:
+- Recorded when any TopoSec module flags an anomaly
+- Includes both true positives and false positives
+- Confidence scores normalized to 0-1 range
+
+### 3. `link_state.csv`
+**Source**: Topology Manager module
+**Fields**:
+- `link_id`: Switch:port-switch:port identifier
+- `state`: Current link state (active, quarantined, etc.)
+- `confidence_score`: Confidence in link validity
+- `reason`: Why state changed
+- `decision`: Accept or reject the link
+
+**Collection Notes**:
+- Updated on topology changes
+- Includes manual interventions by experimenters
+- Confidence scores from multiple validators
+
+### 4. `performance_metrics.csv`
+**Source**: System monitoring tools
+**Fields**:
+- `measurement_type`: normal_operation, under_attack, or recovery
+- `cpu_overhead_percent`: Controller CPU usage
+- `memory_usage_mb`: Controller memory consumption
+- `network_overhead_kbps`: Additional traffic from TopoSec
+- `detection_latency_mean`: Average detection latency
+
+**Collection Notes**:
+- Sampled every 30 seconds during experiments
+- Averages calculated over 1-minute windows
+- Baseline established during normal operation
+
+### 5. `decoy_link_analysis.csv`
+**Source**: Decoy Checker module logs
+**Fields**:
+- `decoy_link_id`: Identifier for fake link
+- `hit_count`: Number of times attackers used this decoy
+- `attack_types_detected`: Which attacks were caught
+- `detection_latency_avg_ms`: Average detection time
+- `confidence_score`: Always 1.0 for decoy hits
+
+**Collection Notes**:
+- Generated post-experiment from decoy hit logs
+- Includes effectiveness metrics per decoy link
+- Used to optimize decoy placement strategy
+
+### 6. `experiment_artifacts.csv`
+**Source**: Experiment monitoring and manual logging
+**Fields**:
+- `artifact_type`: Type of anomaly (controller_restart, etc.)
+- `severity`: Impact level (LOW, MEDIUM, HIGH)
+- `description`: Human-readable description
+- `duration_seconds`: How long artifact persisted
+
+**Collection Notes**:
+- Manually logged during experiments
+- Includes both expected and unexpected events
+- Used to filter or annotate affected data periods
+
+## Data Quality Measures
+
+### Validation Checks
+1. **Temporal Consistency**: Timestamps monotonic within tolerance
+2. **Value Ranges**: All numeric values within expected ranges
+3. **Referential Integrity**: Cross-references between files valid
+4. **Statistical Plausibility**: Distributions match expected patterns
+
+### Cleaning Procedures
+- Removed duplicate records (except retransmissions)
+- Fixed malformed timestamps (< 0.01% of records)
+- Imputed missing values using interpolation (when appropriate)
+- Flagged outliers for manual review
+
+### Missing Data Handling
+- Packet loss: Represented as gaps in event sequence
+- Sensor failures: Interpolated from surrounding values
+- Controller restarts: Annotated in artifacts file
+- Less than 0.5% of data points affected
+
+
+### File Statistics
+| File | Size | Records | Collection Period |
+|------|------|---------|-------------------|
+| lldp_events.csv | 12.4 MB | 50,000 | Full experiment |
+| detections.csv | 2.1 MB | ~9,500 | Attack phases |
+| link_state.csv | 48 KB | 148 | Topology changes |
+| performance_metrics.csv | 8 KB | 30 | Periodic sampling |
+
+
+### Questions
+For questions about the data collection methodology, contact the research team.

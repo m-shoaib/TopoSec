@@ -1,0 +1,6 @@
+Measurement,TopoGuard,TopoGuard+,SPHINX,SPV,RPV,TopoSec
+Baseline (No Defense),124.3,124.3,124.3,124.3,124.3,124.3
+Additional Overhead,18.7,21.4,15.2,23.8,28.6,9.8
+Percentage Increase,15.0%,17.2%,12.2%,19.1%,23.0%,7.9%
+Attack Detection Traffic,12.4,14.7,8.9,35.2,42.8,7.3
+Total During Attacks,155.4,160.4,148.4,183.3,195.7,141.4

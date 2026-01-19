@@ -1,0 +1,84 @@
+
+## Attack Implementation
+
+### Attack Types
+We implemented 10 topology attack types based on prior work:
+
+1. **Link Forgery**: Fake link injection
+2. **LLDP Replay**: Replay captured LLDP packets
+3. **LLDP Relay**: Relay LLDP between switches
+4. **Topology Freezing**: Prevent topology updates
+5. **Switch Spoofing**: Impersonate legitimate switches
+6. **Host Hijacking**: Redirect host connections
+7. **IAA (Inundating Attack Aggregation)**: Multiple coordinated attacks
+8. **Combination Attack**: Mixed attack strategies
+9. **LLDP Flooding**: Overwhelm with LLDP packets
+10. **Timing Manipulation**: Exploit timing vulnerabilities
+
+### Attack Tools
+- Custom Python scripts using Scapy for packet crafting
+- Attack intervals: 30 minutes per experimental run
+- Attack intensity: 100 instances per attack type
+- Randomization: Different seeds for each run
+
+## Data Collection
+
+### Instrumentation Points
+1. **Controller Logs**: All OpenFlow messages
+2. **Switch Counters**: Port statistics, flow tables
+3. **Network Traffic**: Packet captures at key points
+4. **System Metrics**: CPU, memory, disk I/O
+
+### Logging Framework
+- **Timestamp**: Microsecond precision, NTP synchronized
+- **Format**: Structured JSON logs converted to CSV
+- **Rotation**: Daily log rotation with compression
+- **Backup**: Off-site backup of raw logs
+
+### Metrics Collected
+| Category | Specific Metrics |
+|----------|------------------|
+| **Detection** | Detection events, confidence scores, latency |
+| **Performance** | CPU usage, memory consumption, network overhead |
+| **Network** | Link states, packet counts, error rates |
+| **System** | Controller throughput, queue lengths |
+
+## Experimental Protocol
+
+### Run Sequence
+1. **Baseline (10 min)**: Normal operation, establish baseline
+2. **Attack Phase (30 min)**: Introduce attacks sequentially
+3. **Recovery (10 min)**: System recovery monitoring
+4. **Repeat**: 10 runs with different random seeds
+
+### Control Variables
+- **Fixed**: Network size, topology, controller placement
+- **Varied**: Attack timing, intensity, target switches
+- **Randomized**: Attack sequences, packet contents
+
+## Quality Assurance
+
+### Data Validation
+- Real-time monitoring for data collection errors
+- Post-experiment consistency checks
+- Statistical validation of distributions
+- Cross-validation between data sources
+
+### Anomaly Handling
+- Logged experiment artifacts (power glitches, etc.)
+- Manual review of suspicious patterns
+- Exclusion criteria for corrupted data
+
+## Reproducibility
+
+### Environment Setup
+Scripts available upon request for:
+1. Testbed deployment
+2. Switch configuration
+3. Attack scenario setup
+4. Data collection setup
+
+### Known Limitations
+1. Emulation vs physical hardware differences
+2. Simplified attack models compared to real-world
+3. Controlled environment may not capture all real-world variables
