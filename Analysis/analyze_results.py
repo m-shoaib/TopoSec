@@ -202,7 +202,7 @@ class ResultsAnalyzer:
                 print(f"  Average CPU overhead (attack): {cpu_avg:.1f}%")
                 print(f"  Average memory usage (attack): {memory_avg:.1f} MB")
         
-        print(f"\n✅ Analysis complete. All metrics appear consistent with paper claims.")
+        print(f"\n✅ Analysis complete.")
 
 
 if __name__ == "__main__":
