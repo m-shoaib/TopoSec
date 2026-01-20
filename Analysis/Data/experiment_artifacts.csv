@@ -1,0 +1,11 @@
+timestamp,artifact_id,artifact_type,run_id,affected_component,severity,description,duration_seconds,parameters
+2026-01-18T00:03:08.384268,artifact_0001,controller_restart,9,controller,HIGH,Controller restart for maintenance,29.1,{}
+2026-01-19T12:17:13.762674,artifact_0002,switch_reboot,7,network,MEDIUM,Switch 00:00:00:00:00:03 rebooted,66.5,{}
+2026-01-18T17:53:52.308243,artifact_0003,packet_loss_spike,9,controller,MEDIUM,Network congestion caused packet loss spike,57.8,{}
+2026-01-18T00:29:51.886153,artifact_0004,timestamp_drift,8,monitoring,LOW,NTP sync issue caused timestamp drift,,{}
+2026-01-18T19:38:06.164770,artifact_0005,memory_leak,4,controller,HIGH,Controller memory leak detected,129.0,{}
+2026-01-18T02:04:43.995880,artifact_0006,cpu_spike,5,switch,MEDIUM,Background process caused CPU spike,169.7,{}
+2026-01-18T06:35:19.187537,artifact_0007,link_flap,6,network,MEDIUM,Physical link instability detected,276.3,{}
+2026-01-19T08:17:00.214912,artifact_0008,configuration_error,6,controller,LOW,Switch configuration error,,{}
+2026-01-18T11:42:30.989787,artifact_0009,sensor_failure,2,switch,LOW,Monitoring sensor failed temporarily,,{}
+2026-01-19T15:30:11.900740,artifact_0010,power_outage,,network,HIGH,Brief power outage in lab,120.9,{}
